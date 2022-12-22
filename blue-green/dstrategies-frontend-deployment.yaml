@@ -28,6 +28,6 @@ spec:
         resources: {}
         env:  
           - name: REACT_APP_BACK
-            value: https://dstrategies-back-online-<USER>-blue-green.<OCP_DOMAIN>/dstrategies-back
+            value: https://dstrategies-back-online-<USERNAME>-blue-green.<OCP_DOMAIN>/dstrategies-back
           - name: REACT_APP_CATEGORY
             value: BLUE-GREEN
