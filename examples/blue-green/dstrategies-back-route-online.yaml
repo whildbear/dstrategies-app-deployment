@@ -1,0 +1,11 @@
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: dstrategies-back-online
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: dstrategies-back-online
