@@ -1,0 +1,59 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: dstrategies-back
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: dstrategies-back
+  strategy:
+    canary:
+      analysis:
+        startingStep: 1
+        templates:
+        - templateName: dstrategies-back-analysis-template
+      steps:
+      - setWeight: 25
+      - pause:
+          duration: <TIME>
+      - setWeight: 50
+      - pause:
+          duration: <TIME>
+  template:
+    metadata:
+      labels:
+        app: dstrategies-back
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: dstrategies-back-configmap-env-base
+          image: 'quay.io/dseveria/dstrategies-back:V1.0.0'
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/live
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: dstrategies-back
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10

@@ -1,0 +1,16 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  labels:
+    app: dstrategies-back
+  name: dstrategies-back-analysis-template
+spec:
+  metrics:
+    - name: dstrategies-back-webmetric
+      provider:
+        web:
+          jsonPath: '{$.status}'
+          url: >-
+            http://dstrategies-back-online.<USERNAME>-canary.svc.cluster.local:8080/q/health/ready
+      successCondition: result == 'UP'
