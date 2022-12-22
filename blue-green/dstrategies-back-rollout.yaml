@@ -1,0 +1,55 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: dstrategies-back
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dstrategies-back
+  strategy:
+    blueGreen:
+      activeService: <SERVICE_ONLINE>
+      autoPromotionEnabled: false
+      prePromotionAnalysis:
+        templates:
+          - templateName: dstrategies-back-analysis-template
+      previewService: <SERVICE_OFFLINE>
+  template:
+    metadata:
+      labels:
+        app: dstrategies-back
+        version: V1.0.0
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: dstrategies-back-configmap-env-base
+          image: 'quay.io/dseveria/dstrategies-back:V1.0.0'
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/live
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: dstrategies-back
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
