@@ -20,7 +20,6 @@ spec:
     metadata:
       labels:
         app: dstrategies-back
-        version: V1.0.0
     spec:
       containers:
         - envFrom:
