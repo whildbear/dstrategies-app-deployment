@@ -1,0 +1,7 @@
+service:
+  name: no-default-value
+  image:
+    repository: no-default-value
+    version: no-default-value
+  replicas: 5
+  port: 8080

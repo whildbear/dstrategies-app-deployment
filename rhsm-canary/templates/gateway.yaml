@@ -1,0 +1,14 @@
+kind: Gateway
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: {{ include "service.name" . }}
+spec:
+  servers:
+    - port:
+        name: http
+        number: 80
+        protocol: HTTP
+      hosts: 
+        - dstrategies-back-dborrego-istio-system.apps.acidonpe19.sandbox2617.opentlc.com
+  selector:
+    istio: ingressgateway
