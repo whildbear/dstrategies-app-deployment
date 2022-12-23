@@ -5,3 +5,5 @@ service:
     version: no-default-value
   replicas: 5
   port: 8080
+
+domain: no-default-value
