@@ -9,7 +9,6 @@ spec:
         number: 80
         protocol: HTTP
       hosts: 
-        - dstrategies-back-dborrego-istio-system.apps.acidonpe19.sandbox2617.opentlc.com
-        - {{ include "service.name" . }}-istio-system.apps.{{ .Values.domain }}
+        - {{ include "service.name" . }}-{{ .Release.Namespace }}-istio-system.apps.{{ .Values.domain }}
   selector:
     istio: ingressgateway
