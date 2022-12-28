@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "dstrategies-back-configmap-env-base"
+  name: {{ include "service.name" . }}-configmap-env-base
   labels:
     app.kubernetes.io/name: dstrategies-back
     app: dstrategies-back
@@ -15,3 +15,4 @@ data:
   quarkus.jaeger.endpoint: "http://jaeger-collector.gitops.svc:14268/api/traces"
   quarkus.jaeger.propagation: "b3"
   quarkus.jaeger.reporter-log-spans: "true"
+  quarkus.http.cors: 'true'
