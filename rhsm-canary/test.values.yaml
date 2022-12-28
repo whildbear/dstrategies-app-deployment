@@ -1,6 +1,5 @@
 service:
-  name: dstrategies-back
   image:
-    repository: b0rr3g0/error-service
-    version: 0.2.1
-domain: acidonpe19.sandbox2617.opentlc.com
+    repository: quay.io/dseveria/dstrategies-back
+    version: V1.0.0
+domain: davidseve.sandbox526.opentlc.com

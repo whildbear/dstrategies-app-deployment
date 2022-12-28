@@ -1,9 +1,10 @@
 service:
-  name: no-default-value
+  name: dstrategies-back
   image:
     repository: no-default-value
     version: no-default-value
-  replicas: 5
+  replicas: 4
   port: 8080
+  healthPath: /q/health/live
 
 domain: no-default-value

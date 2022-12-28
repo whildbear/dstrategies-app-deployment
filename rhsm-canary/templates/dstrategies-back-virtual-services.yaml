@@ -6,7 +6,7 @@ spec:
   gateways:
   - {{ include "service.name" . }}
   hosts:
-  - {{ include "service.name" . }}-{{ .Release.Namespace }}-istio-system.apps.{{ .Values.domain }}
+  - "*"
   http:
   - name: primary
     route:

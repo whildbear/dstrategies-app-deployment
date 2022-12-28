@@ -9,6 +9,6 @@ spec:
         number: 80
         protocol: HTTP
       hosts: 
-        - {{ include "service.name" . }}-{{ .Release.Namespace }}-istio-system.apps.{{ .Values.domain }}
+        - "*"
   selector:
     istio: ingressgateway
