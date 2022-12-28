@@ -7,7 +7,7 @@ metadata:
     app: dstrategies-back
     version: "0.2"
 data:
-  application.version: latest
+  application.version: {{ .Values.service.image.version }}
   quarkus.log.level: DEBUG
   quarkus.jaeger.service-name: "dstrategies-back"
   quarkus.jaeger.sampler-type: "const"

@@ -51,10 +51,6 @@ spec:
             {}
   strategy:
     canary:
-      steps:
-      - setWeight: 5
-      - pause:
-          duration: 2m
       trafficRouting:
         istio:
           virtualService:
@@ -65,4 +61,5 @@ spec:
             name: {{ include "service.name" . }}
             canarySubsetName: canary
             stableSubsetName: stable
-
+      steps:
+        - setWeight: 100
