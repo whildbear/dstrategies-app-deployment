@@ -11,3 +11,4 @@ data:
   quarkus.jaeger.sampler-type: const
   quarkus.jaeger.service-name: dstrategies-back
   quarkus.log.level: DEBUG
+  quarkus.http.cors: 'true'
