@@ -1,5 +1,4 @@
 service:
   image:
-    repository: quay.io/dseveria/dstrategies-back
     version: V1.0.0
 domain: davidseve.sandbox526.opentlc.com

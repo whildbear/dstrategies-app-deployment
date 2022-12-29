@@ -1,0 +1,14 @@
+kind: Gateway
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: dstrategies-frontend
+spec:
+  servers:
+    - port:
+        name: http
+        number: 80
+        protocol: HTTP
+      hosts: 
+        - dstrategies-frontend-{{ .Release.Namespace }}-istio-system.apps.{{ .Values.domain }}
+  selector:
+    istio: ingressgateway

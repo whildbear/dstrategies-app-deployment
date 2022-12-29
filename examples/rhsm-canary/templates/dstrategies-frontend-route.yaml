@@ -1,10 +1,11 @@
+---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ include "service.name" . }}-{{ .Release.Namespace }}
+  name: dstrategies-frontend-{{ .Release.Namespace }}
   namespace: istio-system
 spec:
-  host: {{ include "service.name" . }}-{{ .Release.Namespace }}-istio-system.apps.{{ .Values.domain }}
+  host: dstrategies-frontend-{{ .Release.Namespace }}-istio-system.apps.{{ .Values.domain }}
   to:
     kind: Service
     name: istio-ingressgateway
@@ -13,3 +14,4 @@ spec:
     insecureEdgeTerminationPolicy: Redirect
   port:
     targetPort: http2
+
