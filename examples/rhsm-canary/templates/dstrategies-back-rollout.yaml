@@ -52,6 +52,9 @@ spec:
   strategy:
     canary:
       dynamicStableScale: true
+      analysis:
+        templates:
+        - templateName: {{ include "service.name" . }}-analysis-template
       trafficRouting:
         istio:
           virtualService:
