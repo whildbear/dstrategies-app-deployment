@@ -1,4 +1,4 @@
 service:
   image:
     version: V1.0.0
-domain: davidseve.sandbox526.opentlc.com
+domain: <OCP_APPS_DOMAIN>
