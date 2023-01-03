@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ include "service.name" . }}
+  labels:
+    {{- include "service.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.service.replicas }}
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: {{ include "service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+      labels:
+        {{- include "service.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "service.name" . }}
+          image: "{{ .Values.service.image.repository }}:{{ .Values.service.image.version }}"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          envFrom:
+          - configMapRef:
+              name: "{{ include "service.name" . }}-configmap-env-base"
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: {{ .Values.service.healthPath }}
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: {{ .Values.service.healthPath }}
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources:
+            {}
+  strategy:
+    canary:
+      dynamicStableScale: true
+      analysis:
+        templates:
+        - templateName: {{ include "service.name" . }}-analysis-template
+      trafficRouting:
+        istio:
+          virtualService:
+            routes:
+            - primary
+            name: {{ include "service.name" . }}
+          destinationRule:
+            name: {{ include "service.name" . }}
+            canarySubsetName: canary
+            stableSubsetName: stable
+      steps:
+      - setWeight: 10
+      - pause:
+          duration: 90s
+      - setWeight: 50
+      - pause:
+          duration: 90s
+      - setWeight: 75
+      - pause:
+          duration: 90s

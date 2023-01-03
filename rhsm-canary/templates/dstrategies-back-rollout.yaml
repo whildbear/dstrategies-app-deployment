@@ -30,7 +30,7 @@ spec:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /api/v1/health
+              path: {{ .Values.service.healthPath }}
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 0
@@ -40,7 +40,7 @@ spec:
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /api/v1/health
+              path: {{ .Values.service.healthPath }}
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 0
@@ -51,10 +51,10 @@ spec:
             {}
   strategy:
     canary:
-      steps:
-      - setWeight: 5
-      - pause:
-          duration: 2m
+      dynamicStableScale: true
+      analysis:
+        templates:
+        - templateName: {{ include "service.name" . }}-analysis-template
       trafficRouting:
         istio:
           virtualService:
@@ -65,4 +65,5 @@ spec:
             name: {{ include "service.name" . }}
             canarySubsetName: canary
             stableSubsetName: stable
-
+      steps:
+        <SET-STEPS>

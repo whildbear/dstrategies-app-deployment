@@ -1,0 +1,4 @@
+service:
+  image:
+    version: V1.0.0
+domain: <OCP_APPS_DOMAIN>

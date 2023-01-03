@@ -1,0 +1,35 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dstrategies-frontend
+    version: v1
+  name: dstrategies-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dstrategies-frontend
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+      labels:
+        name: dstrategies-frontend
+        app: dstrategies-frontend
+        version: v1
+    spec:
+      containers:
+      - image: 'quay.io/acidonpe/dstrategies-frontend:latest'
+        imagePullPolicy: Always
+        name: dstrategies-frontend
+        ports:
+          - containerPort: 3000
+            protocol: TCP
+        resources: {}
+        env:  
+          - name: REACT_APP_BACK
+            value: https://{{ include "service.name" . }}-{{ .Release.Namespace }}-istio-system.apps.{{ .Values.domain }}/dstrategies-back
+          - name: REACT_APP_CATEGORY
+            value: CANARY-SERVICE-MESH
