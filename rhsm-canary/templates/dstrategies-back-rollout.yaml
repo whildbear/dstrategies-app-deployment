@@ -66,12 +66,4 @@ spec:
             canarySubsetName: canary
             stableSubsetName: stable
       steps:
-      - setWeight: 10
-      - pause:
-          duration: 60s
-      - setWeight: 50
-      - pause:
-          duration: 60s
-      - setWeight: 75
-      - pause:
-          duration: 60s
+        <SET-STEPS>
