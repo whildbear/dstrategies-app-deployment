@@ -28,6 +28,6 @@ spec:
         resources: {}
         env:  
           - name: REACT_APP_BACK
-            value: http://ttt/dstrategies-back
+            value: http://dstrategies-back:8080/
           - name: REACT_APP_CATEGORY
             value: BLUE-GREEN

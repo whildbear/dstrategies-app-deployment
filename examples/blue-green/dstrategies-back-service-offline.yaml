@@ -4,6 +4,7 @@ kind: Service
 metadata:
   name: dstrategies-back-offline
 spec:
+  type: LoadBalancer
   ports:
   - name: http
     port: 8080
