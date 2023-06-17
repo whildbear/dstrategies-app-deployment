@@ -12,5 +12,5 @@ spec:
         web:
           jsonPath: '{$.status}'
           url: >-
-            http://dstrategies-back-offline.kubernetes.default.svc:8080/q/health/ready
+            http://dstrategies-back-offline:8080/q/health/ready
       successCondition: result == 'UP'
