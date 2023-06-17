@@ -28,6 +28,6 @@ spec:
         resources: {}
         env:  
           - name: REACT_APP_BACK
-            value: http://dstrategies-back-online-user01-blue-green.apps.acidonpe19.sandbox2617.opentlc.com/dstrategies-back
+            value: http://ttt/dstrategies-back
           - name: REACT_APP_CATEGORY
             value: BLUE-GREEN
