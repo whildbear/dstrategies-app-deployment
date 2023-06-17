@@ -28,6 +28,7 @@ spec:
         resources: {}
         env:  
           - name: REACT_APP_BACK
-            value: http://dstrategies-back-online:8080/dstrategies-back
+#            value: http://dstrategies-back-online:8080/dstrategies-back
+            value: http://ab9adc603793c45dbbba7927b800163e-1139540981.eu-central-1.elb.amazonaws.com:8080/dstrategies-back
           - name: REACT_APP_CATEGORY
             value: BLUE-GREEN
