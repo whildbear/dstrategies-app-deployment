@@ -6,12 +6,12 @@ metadata:
     app: dstrategies-back
   name: dstrategies-back-analysis-template
 spec:
-#  metrics:
-#    - name: dstrategies-back-webmetric
-#      provider:
-#        web:
-#          jsonPath: '{$.status}'
-#          url: >-
-#            http://aec8234737f9143e2ab588182a412649-1399257555.eu-central-1.elb.amazonaws.com:8080/q/health/ready
-#      successCondition: result == 'UP'
+  metrics:
+    - name: dstrategies-back-webmetric
+      provider:
+        web:
+          jsonPath: '{$.status}'
+          url: >-
+            http://aec8234737f9143e2ab588182a412649-1399257555.eu-central-1.elb.amazonaws.com:8080/q/health/ready
+      successCondition: result == 'UP'
 #            http://dstrategies-back-offline:8080/q/health/ready
